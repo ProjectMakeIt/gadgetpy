@@ -39,10 +39,12 @@ class Gadget:
         if write:
             self.buildPaths()
             self.write()
+    def exists(self):
+        return False
     # Write out gadget data
     # Should be called when you set or update any of the gadget, function, or config info
     # Will throw an error if the gadget is currenty enabled
-    def write():
+    def write(self):
         if self.isMounted():
             raise GadgetMounted()
             return

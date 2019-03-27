@@ -6,6 +6,9 @@ class GadgetException(Exception):
 class GadgetExists(GadgetException):
     pass
 
+class GadgetInvalid(GadgetException):
+    pass
+
 # Attempting to update a gadget when it is already mounted.  Unmount it first.
 class GadgetMounted(GadgetException):
     pass

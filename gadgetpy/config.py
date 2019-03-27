@@ -18,7 +18,7 @@ class Config:
         self.functions = []
     def write(self,path):
         myPath = os.path.join(path,'configs',name)
-        existingFunctions = [f for f in os.listdir(myPath if verifyName(f)]
+        existingFunctions = [f for f in os.listdir(myPath) if verifyName(f)]
         for func in existingFunctions:
             if not func in self.functions:
                 os.remove(os.path.join(myPath,func))
