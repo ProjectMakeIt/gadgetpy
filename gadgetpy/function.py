@@ -1,6 +1,7 @@
 import os
 
 from error import GadgetInvalid
+from .utils import verifyName
 
 # Gadget Function 
 # ----
@@ -42,23 +43,23 @@ class MassStorage(Function):
         self.nofua = False
         self.removable = False
     def write(self,path):
-        lunPath = os.path.join(path,'lun.0')
         # NOTE: Cant write to the file using open, so we are using os.system.  Need to see what is needed
         # to fix this.
-        os.system('echo "%s" > %s' % self.image, os.path.join(lunPath,'file'))
+        lunPath = os.path.join(path,'lun.0')
+        os.system('echo "%s" > %s' % (self.image, os.path.join(lunPath,'file')))
         if self.cdrom:
-            os.system('echo "1" > %s' % self.image, os.path.join(lunPath,'cdrom'))
+            os.system('echo "1" > %s' % os.path.join(lunPath,'cdrom'))
         else:
-            os.system('echo "0" > %s' % self.image, os.path.join(lunPath,'cdrom'))
+            os.system('echo "0" > %s' % os.path.join(lunPath,'cdrom'))
         if self.readOnly:
-            os.system('echo "1" > %s' % self.image, os.path.join(lunPath,'ro'))
+            os.system('echo "1" > %s' % os.path.join(lunPath,'ro'))
         else:
-            os.system('echo "0" > %s' % self.image, os.path.join(lunPath,'ro'))
+            os.system('echo "0" > %s' % os.path.join(lunPath,'ro'))
         if self.nofua:
-            os.system('echo "1" > %s' % self.image, os.path.join(lunPath,'nofua'))
+            os.system('echo "1" > %s' % os.path.join(lunPath,'nofua'))
         else:
-            os.system('echo "0" > %s' % self.image, os.path.join(lunPath,'nofua'))
+            os.system('echo "0" > %s' % os.path.join(lunPath,'nofua'))
         if self.removable:
-            os.system('echo "1" > %s' % self.image, os.path.join(lunPath,'removable'))
+            os.system('echo "1" > %s' % os.path.join(lunPath,'removable'))
         else:
-            os.system('echo "0" > %s' % self.image, os.path.join(lunPath,'removable'))
+            os.system('echo "0" > %s' % os.path.join(lunPath,'removable'))

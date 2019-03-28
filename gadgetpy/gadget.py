@@ -57,9 +57,9 @@ class Gadget:
         for fName,name in self.files.items():
             with open(os.path.join(self.path,fName),'w') as f:
                 f.write(self.__dict__[name])
-        for function in self.functions:
-            function.write(self.path)
-        for config in self.configs:
+        for name,function in self.functions.items():
+            function.write(os.path.join(self.path,'functions',function.name))
+        for name,config in self.configs.items():
             config.write(self.path)
     # Build inital paths
     # Should only be called once to generate the inital paths.
@@ -78,14 +78,14 @@ class Gadget:
     def activate(self,pointer):
         if not verifyPointer(self.path,pointer):
             raise PointerMounted()
-        os.system('echo "%s" > %s' % pointer, os.path.join(self.path,'UDC'))
+        os.system('echo "%s" > %s' % (pointer, os.path.join(self.path,'UDC')))
     def deactivate(self):
         os.system('echo "" > %s' % os.path.join(self.path,'UDC'))
     # Add a config to the gadget
     def addConfig(self,config):
         self.configs[config.name] = config
-        config.buildPath(self.path)
+        config.buildPath(os.path.join(self.path,'configs'))
     # Add a function to the gadget
     def addFunction(self,function):
         self.functions[function.name] = function
-        function.buildPath(self.path)
+        function.buildPath(os.path.join(self.path,'functions'))

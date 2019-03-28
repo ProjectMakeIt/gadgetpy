@@ -1,5 +1,4 @@
 import gadgetpy
-import mock
 import os
 
 def test_valid_name():
