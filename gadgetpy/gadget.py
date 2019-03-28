@@ -46,7 +46,7 @@ class Gadget:
         UDCPath = os.path.join(self.path,'UDC')
         with open(UDCPath,'r') as f:
             content = f.read()
-            return len(content) > 0
+            return len(content.strip()) > 0
     # Write out gadget data
     # Should be called when you set or update any of the gadget, function, or config info
     # Will throw an error if the gadget is currenty enabled
