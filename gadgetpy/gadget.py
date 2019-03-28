@@ -71,8 +71,10 @@ class Gadget:
         # some point
         stringsPath = os.path.join(self.path,'strings')
         englishPath = os.path.join(self.path,'strings','0x409')
-        os.mkdir(stringsPath)
-        os.mkdir(englishPath)
+        if not os.path.exists(stringsPath):
+            os.mkdir(stringsPath)
+        if not os.path.exists(englishPath):
+            os.mkdir(englishPath)
     # Will attempt to bind the gadget to a usb pointer.  Will first check to see if the pointer
     # exists, then verify that it is currently not in use.
     def activate(self,pointer):
