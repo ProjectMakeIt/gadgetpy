@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='gadgetpy',
-        version='0.1',
+        version='0.2',
         description='Manage USB_Gadget devices in ConfigFS',
         url='http://github.com/projectmakeit/gadgetpy',
         author='Blixa Morgan (MrMakeIt)',
