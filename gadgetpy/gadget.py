@@ -1,7 +1,10 @@
-import os
+import os,subprocess
 
 from utils import verifyPointer
-from error import GadgetExists, GadgetMounted, PointerMounted
+from error import GadgetExists, GadgetMounted, PointerMounted, GadgetNoUSBGadget
+
+def get_default_path():
+    return subprocess.check_output('mount | grep configfs | cut -d " " -f 3',shell=True).strip()
 
 # USB Gadget Class
 # ----
@@ -13,7 +16,7 @@ from error import GadgetExists, GadgetMounted, PointerMounted
 # write: Defaults to True. Whether or not to immediatly create the gadget folder when initializing the gadget.
 
 class Gadget:
-    def __init__(self,name,path,write=True):
+    def __init__(self,name,path=None,write=True):
         self.idVendor = "0x1d6b"
         self.idProduct = "0x0104"
         self.bcdDevice = "0x0100"
@@ -22,7 +25,10 @@ class Gadget:
         self.manufacturer="Lorium Ipsum"
         self.product="Python Gadget"
         self.name = name
-        self.path = os.path.join(path,name)
+        if not path==None:
+            self.path = os.path.join(path,name)
+        else:
+            self.path = os.path.join(get_default_path(),'usb_gadget',name)
         self.configs = {}
         self.functions = {}
         stringsPath = os.path.join('strings','0x409')

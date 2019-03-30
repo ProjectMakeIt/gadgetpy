@@ -17,3 +17,7 @@ class GadgetMounted(GadgetException):
 # or doesn't exist
 class PointerMounted(GadgetException):
     pass
+
+# The usb_gadget module isn't loaded, so no way we can enable any of the gadget features
+class GadgetNoUSBGadget(GadgetException):
+    pass

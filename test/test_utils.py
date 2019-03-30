@@ -15,13 +15,14 @@ def test_valid_pointer(fs):
 
 def test_pointer_in_use(fs):
     tmpdir = "/gadgets/"
+    fs.create_dir(tmpdir)
     gadget = gadgetpy.Gadget('testGadget',tmpdir,write=False)
-    fs.create_file(os.path.join(gadget.path,'UDC'),contents='test')
-    fs.create_file('/sys/class/udc/test')
-    assert not gadgetpy.utils.verifyPointer(str(tmpdir),'test')
+    fs.create_file(os.path.join(tmpdir,'gadget2','UDC'),contents='test.usb0')
+    fs.create_file('/sys/class/udc/test.usb0')
+    assert not gadgetpy.utils.verifyPointer(str(tmpdir),'test.usb0')
 
 def test_invalid_pointer(fs):
     tmpdir = "/gadgets/"
     fs.create_dir(tmpdir)
-    fs.create_file('/sys/class/udc/test2')
+    fs.create_dir('/sys/class/udc')
     assert not gadgetpy.utils.verifyPointer(tmpdir,'test')

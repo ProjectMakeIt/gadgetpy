@@ -1,4 +1,4 @@
-import os
+import os,subprocess
 import gadgetpy
 from pytest import raises
 
