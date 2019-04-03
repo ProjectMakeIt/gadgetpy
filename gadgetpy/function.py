@@ -63,3 +63,17 @@ class MassStorage(Function):
             os.system('echo "1" > %s' % os.path.join(lunPath,'removable'))
         else:
             os.system('echo "0" > %s' % os.path.join(lunPath,'removable'))
+
+class Network(Function):
+    def __init__(self,name):
+        self.type="ecm"
+        Function.__init__(self,name)
+        self.host_mac = "000000000000"
+        self.dev_mac = "000000000000"
+    def write(self,path):
+        host = iter(self.host_mac.lower())
+        finalHost = ':'.join(a+b for a,b in zip(host,host))
+        os.system('echo "%s" > "%s"' % (finalHost, os.path.join(path,'host_addr')))
+        dev = iter(self.dev_mac.lower())
+        finalDev = ':'.join(a+b for a,b in zip(dev,dev))
+        os.system('echo "%s" > "%s"' % (finalDev, os.path.join(path,'dev_addr')))
