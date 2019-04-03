@@ -17,7 +17,7 @@ def test_pointer_in_use(fs):
     tmpdir = "/gadgets/"
     fs.create_dir(tmpdir)
     gadget = gadgetpy.Gadget('testGadget',tmpdir,write=False)
-    fs.create_file(os.path.join(tmpdir,'gadget2','UDC'),contents='test.usb0')
+    fs.create_file(os.path.join(tmpdir,'gadget2','UDC'),contents='test.usb0\n')
     fs.create_file('/sys/class/udc/test.usb0')
     assert not gadgetpy.utils.verifyPointer(str(tmpdir),'test.usb0')
 
